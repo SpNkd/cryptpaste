@@ -3,6 +3,9 @@ name: Publish CryptPaste Pages
 on:
   push:
     branches: ["master"]
+    paths:
+      - "frontend/dist/**"
+      - ".gitverse/workflows/pages.yml"
   workflow_dispatch:
 
 jobs:
