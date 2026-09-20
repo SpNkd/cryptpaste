@@ -5,6 +5,17 @@ Never put credentials, raw request bodies, plaintext or private database URLs
 in this file.
 
 ```text
+## 2026-09-20 17:06Z — remove broken theme toggle
+
+- Source commit: 39823c5c36071795d70add40ebffe5219501bc48
+- GitHub repository: https://github.com/SpNkd/cryptpaste / pushed
+- GitVerse repository: https://gitverse.ru/spnkd/cryptpaste / Pages run #1597637 succeeded
+- Static URL: https://spnkd.gitverse.site/cryptpaste/ / HTTP 200
+- UI check: theme button absent from the published JavaScript bundle
+- Regression checks: direct `/p/{id}` route still returns the SPA fallback
+- Rollback target: previous Pages artifact and source commit ff595a6
+- Notes: color scheme now follows the operating system automatically
+
 ## 2026-09-20 16:50Z — compact links and SPA fallback
 
 - Source commit: 390172ee9267aad035d91b0eb58f4727fe926114
