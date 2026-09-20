@@ -6,34 +6,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
-      - name: Install
-        run: npm ci
-      - name: Install Rollup Linux native binary
-        run: npm install --no-save --package-lock=false --ignore-scripts @rollup/rollup-linux-x64-gnu@4.63.4
-      - name: Build frontend
-        env:
-          # The API Gateway URL is public by design; no secret is embedded here.
-          VITE_API_BASE_URL: https://d5dpkmtg3t2cb2la74pj.y0g3kng5.apigw.yandexcloud.net
-          VITE_BASE_PATH: /cryptpaste/
-        run: npm run build:frontend
-      - name: Verify static entrypoint
+      - name: Verify prebuilt static entrypoint
         run: test -f frontend/dist/index.html
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: frontend/dist
   deploy:
-    needs: build
+    needs: publish
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Pages

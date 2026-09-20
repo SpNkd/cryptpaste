@@ -18,8 +18,9 @@ plaintext, пароль или ключ.
   вариант, а слабые пароли отдельно отражены в threat model.
 - **Frontend:** TypeScript без UI-фреймворка, Vite только для dev/build.
   Runtime bundle состоит из собственного JS и Web Crypto API; CDN и tracking
-  не используются. Build создаёт `frontend/dist` с относительными asset paths,
-  подходящими для GitVerse Pages.
+  не используются. Production `frontend/dist` собирается локально и хранится
+  в репозитории как проверяемый release artifact; GitVerse Pages только
+  публикует этот каталог с относительными asset paths.
 - **Backend:** Node.js 22 Cloud Function (локальная разработка совместима с
   Node.js 20.19+). Общий HTTP-router запускается и в
   локальном dev adapter, и в Yandex Cloud Function.

@@ -78,6 +78,16 @@ PRIVACY.md            короткая privacy notice
 Production frontend размещается только через GitVerse Pages. GitHub — публичное
 зеркало исходников и не используется для GitHub Pages.
 
+GitVerse workflow публикует уже собранный `frontend/dist`, который хранится в
+репозитории как release artifact. Перед публикацией соберите его с production
+API URL:
+
+```bash
+VITE_API_BASE_URL='https://<api-gateway-domain>' \
+VITE_BASE_PATH='/cryptpaste/' \
+npm run build:frontend
+```
+
 Yandex Cloud topology: GitVerse Pages → Yandex API Gateway → Yandex Cloud
 Functions → YDB Serverless. Deployment helper использует авторизованный `yc`
 CLI, не кладёт токены в Git и не печатает request body. Перед применением
