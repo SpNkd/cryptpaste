@@ -18,6 +18,8 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci
+      - name: Install Rollup Linux native binary
+        run: npm install --no-save --package-lock=false --ignore-scripts @rollup/rollup-linux-x64-gnu@4.63.4
       - name: Build frontend
         env:
           # The API Gateway URL is public by design; no secret is embedded here.
