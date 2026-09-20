@@ -1,0 +1,28 @@
+{
+  "name": "cryptpaste",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Client-side encrypted short text sharing service",
+  "type": "module",
+  "workspaces": ["frontend", "backend"],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:api": "npm --prefix backend run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "npm --prefix frontend run build",
+    "build:backend": "npm --prefix backend run build",
+    "test": "node --test backend/test/*.test.mjs && node --import tsx --test frontend/test/*.test.ts",
+    "test:watch": "node --test --watch backend/test/*.test.mjs",
+    "check": "npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

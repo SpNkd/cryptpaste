@@ -1,0 +1,86 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: CryptPaste API
+  description: Client-side encrypted short note API
+x-yc-apigateway:
+  ignoreTrailingSlashes: true
+  cors:
+    $ref: "#/components/x-yc-apigateway-cors-rules/cryptpaste"
+  rateLimit:
+    allRequests:
+      rpm: 600
+paths:
+  /health:
+    get:
+      operationId: health
+      responses:
+        '200': { description: OK }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        service_account_id: __GATEWAY_SERVICE_ACCOUNT_ID__
+        tag: "$latest"
+  /pastes:
+    post:
+      operationId: createPaste
+      requestBody:
+        required: true
+        content:
+          application/json: {}
+      responses:
+        '201': { description: Created }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        service_account_id: __GATEWAY_SERVICE_ACCOUNT_ID__
+        tag: "$latest"
+    options:
+      operationId: createPasteOptions
+      responses:
+        '204': { description: CORS preflight }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        service_account_id: __GATEWAY_SERVICE_ACCOUNT_ID__
+        tag: "$latest"
+  /pastes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, pattern: '^[A-Za-z0-9_-]{16}$' }
+    get:
+      operationId: getPaste
+      responses:
+        '200': { description: Encrypted envelope }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        service_account_id: __GATEWAY_SERVICE_ACCOUNT_ID__
+        tag: "$latest"
+    delete:
+      operationId: deletePaste
+      responses:
+        '200': { description: Deleted }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        service_account_id: __GATEWAY_SERVICE_ACCOUNT_ID__
+        tag: "$latest"
+    options:
+      operationId: pasteOptions
+      responses:
+        '204': { description: CORS preflight }
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        service_account_id: __GATEWAY_SERVICE_ACCOUNT_ID__
+        tag: "$latest"
+components:
+  x-yc-apigateway-cors-rules:
+    cryptpaste:
+      origin: [__ALLOWED_ORIGINS__]
+      methods: [GET, POST, DELETE, OPTIONS]
+      allowedHeaders: [Accept, Content-Type, X-Delete-Token, X-Read-Delete-Token]
+      maxAge: 600

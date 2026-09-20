@@ -1,0 +1,13 @@
+node_modules/
+frontend/dist/
+backend/dist/
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
+.ydb/
+*.log
+deploy/.tmp/
+deploy/*.json
+!deploy/*.example.json
