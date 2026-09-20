@@ -5,6 +5,18 @@ Never put credentials, raw request bodies, plaintext or private database URLs
 in this file.
 
 ```text
+## 2026-09-20 16:50Z — compact links and SPA fallback
+
+- Source commit: 390172ee9267aad035d91b0eb58f4727fe926114
+- GitHub repository: https://github.com/SpNkd/cryptpaste / pushed
+- GitVerse repository: https://gitverse.ru/spnkd/cryptpaste / Pages run #1597548 succeeded
+- Backend function version: ACTIVE production version with compact-ID API validation
+- Static URL: https://spnkd.gitverse.site/cryptpaste/ / HTTP 200
+- Direct routes: old and new `/p/{id}` paths / HTTP 200 via `404.html` SPA fallback
+- API smoke flow: new four-character ID, read, owner delete, and legacy-ID read passed
+- Rollback target: previous ACTIVE Yandex Cloud Function version and source commit 7f5be04
+- Notes: four-character IDs are convenience identifiers, not a security boundary
+
 ## 2026-09-20 13:41Z — initial production release
 
 - Source commit: 3af2849a5c93a018d94290211977fe5ab303707e
