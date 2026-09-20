@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { ALLOWED_TTLS, KDF_ITERATIONS, MAX_PLAINTEXT_BYTES } from './constants.mjs';
 import { HttpError } from './errors.mjs';
 
-const ID_RE = /^[A-Za-z0-9_-]{16}$/;
+const ID_RE = /^(?:[A-Za-z0-9_-]{4}|[A-Za-z0-9_-]{16})$/;
 const TOKEN_RE = /^[A-Za-z0-9_-]{32,128}$/;
 const BASE64URL_RE = /^[A-Za-z0-9_-]+$/;
 

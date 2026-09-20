@@ -46,7 +46,7 @@ beforeEach(() => resetForTests());
 
 test('creates and reads only encrypted envelope, then deletes with hashed owner token', async () => {
   const created = await create();
-  assert.match(created.id, /^[A-Za-z0-9_-]{16}$/);
+  assert.match(created.id, /^[A-Za-z0-9_-]{4}$/);
   const read = await handler(event('GET', `/api/pastes/${created.id}`));
   assert.equal(read.statusCode, 200);
   const payload = JSON.parse(read.body);
@@ -82,6 +82,7 @@ test('validates content type, body and nonexistent identifiers', async () => {
   assert.equal((await handler(event('POST', '/api/pastes', envelope()))).statusCode, 415);
   assert.equal((await handler(event('POST', '/api/pastes', { ...envelope(), size: 33 * 1024 }, { 'content-type': 'application/json' }))).statusCode, 400);
   assert.equal((await handler(event('GET', '/api/pastes/aaaaaaaaaaaaaaaa'))).statusCode, 404);
+  assert.equal((await handler(event('GET', '/api/pastes/abcd'))).statusCode, 404);
   assert.equal((await handler(event('GET', '/api/pastes/not-an-id'))).statusCode, 404);
 });
 

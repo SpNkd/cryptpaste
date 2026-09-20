@@ -38,7 +38,7 @@ function limited(key, max) {
 }
 
 function randomId() {
-  return randomBytes(12).toString('base64url');
+  return randomBytes(3).toString('base64url');
 }
 
 function response(statusCode, body, origin = '') {

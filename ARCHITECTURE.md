@@ -25,7 +25,8 @@ plaintext, пароль или ключ.
   Node.js 20.19+). Общий HTTP-router запускается и в
   локальном dev adapter, и в Yandex Cloud Function.
 - **Storage:** YDB Serverless, одна таблица `pastes` с primary key по случайному
-  96-bit URL-safe ID. YDB JavaScript SDK (`@ydbjs/core`, `@ydbjs/query`) позволяет
+  24-bit URL-safe ID для новых заметок; при коллизии backend повторяет вставку.
+  Старые 96-bit ID поддерживаются для обратной совместимости. YDB JavaScript SDK (`@ydbjs/core`, `@ydbjs/query`) позволяет
   использовать параметризованные YQL-запросы.
 - **Gateway:** Yandex API Gateway, OpenAPI 3, Cloud Functions integration,
   точный CORS allowlist и gateway rate limit. Максимальный plaintext frontend и

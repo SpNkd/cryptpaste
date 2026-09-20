@@ -57,8 +57,10 @@ npm run check
 - `DELETE /pastes/{id}` — удаляет по owner delete token или по
   server-issued read-delete token.
 
-Публичный ID — 16 URL-safe символов, полученных из 96 случайных бит. Лимит
-исходного UTF-8 текста — 32 KiB. TTL: 10 минут, 1 час, 24 часа или 7 дней.
+Публичный ID новой заметки — 4 URL-safe символа (24 случайных бита); backend
+повторяет генерацию при коллизии. Старые 16-символьные ссылки продолжают
+работать. Лимит исходного UTF-8 текста — 32 KiB. TTL: 10 минут, 1 час, 24
+часа или 7 дней.
 
 ## Локальная структура
 
@@ -85,8 +87,11 @@ API URL:
 ```bash
 VITE_API_BASE_URL='https://<api-gateway-domain>' \
 VITE_BASE_PATH='/cryptpaste/' \
-npm run build:frontend
+npm run build:pages
 ```
+
+Команда также создаёт `frontend/dist/404.html`: GitVerse Pages использует его
+как SPA fallback для прямого открытия ссылки `/p/{id}`.
 
 Yandex Cloud topology: GitVerse Pages → Yandex API Gateway → Yandex Cloud
 Functions → YDB Serverless. Deployment helper использует авторизованный `yc`

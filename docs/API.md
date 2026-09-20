@@ -30,8 +30,11 @@ proxy.
 Response `201`:
 
 ```json
-{ "id": "16-url-safe-chars", "expiresAt": "2026-01-01T00:00:00.000Z" }
+{ "id": "aB3_", "expiresAt": "2026-01-01T00:00:00.000Z" }
 ```
+
+New IDs are four URL-safe characters. Existing sixteen-character IDs remain
+valid for backwards compatibility.
 
 The delete token is hashed before persistence. It is not returned in the public
 read link.

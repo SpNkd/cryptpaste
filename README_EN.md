@@ -12,3 +12,7 @@ public source mirror; GitHub Pages is intentionally not used.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md), [THREAT_MODEL.md](THREAT_MODEL.md), and
 the Russian [README](README.md) for setup, deployment and limitations.
+
+New notes use compact four-character URL-safe IDs. Legacy sixteen-character
+links remain readable. The Pages build also publishes a `404.html` SPA fallback
+so direct `/p/{id}` links work on GitVerse Pages.

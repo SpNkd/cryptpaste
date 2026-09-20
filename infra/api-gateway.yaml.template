@@ -49,7 +49,7 @@ paths:
       - name: id
         in: path
         required: true
-        schema: { type: string, pattern: '^[A-Za-z0-9_-]{16}$' }
+        schema: { type: string, pattern: '^[A-Za-z0-9_-]{4}([A-Za-z0-9_-]{12})?$' }
     get:
       operationId: getPaste
       responses:

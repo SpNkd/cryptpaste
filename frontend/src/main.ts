@@ -16,7 +16,7 @@ function route(): Route {
   const segments = window.location.pathname.split('/').filter(Boolean);
   const pasteMarker = segments.lastIndexOf('p');
   const id = pasteMarker >= 0 ? segments[pasteMarker + 1] : undefined;
-  return id && /^[A-Za-z0-9_-]{16}$/.test(id) ? { kind: 'paste', id } : { kind: 'home' };
+  return id && /^(?:[A-Za-z0-9_-]{4}|[A-Za-z0-9_-]{16})$/.test(id) ? { kind: 'paste', id } : { kind: 'home' };
 }
 
 function homeHref(): string {
