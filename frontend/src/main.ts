@@ -27,32 +27,9 @@ function pasteHref(id: string): string {
   return `${homeHref()}p/${id}`;
 }
 
-function setTheme(theme: 'light' | 'dark' | null): void {
-  if (theme) document.documentElement.dataset.theme = theme;
-  else delete document.documentElement.dataset.theme;
-  try {
-    if (theme) localStorage.setItem('cryptpaste-theme', theme);
-    else localStorage.removeItem('cryptpaste-theme');
-  } catch {
-    // Theme preference is optional and never affects the note security model.
-  }
-}
-
-function restoreTheme(): void {
-  try {
-    const stored = localStorage.getItem('cryptpaste-theme');
-    if (stored === 'light' || stored === 'dark') setTheme(stored);
-  } catch {
-    // Ignore unavailable storage.
-  }
-}
-
 function header(): string {
   return `<header class="topbar">
     <a class="brand" href="${homeHref()}" aria-label="CryptPaste — на главную"><span class="brand-mark">C</span>CryptPaste</a>
-    <div class="top-actions">
-      <button class="icon-button" type="button" data-action="theme" aria-label="Переключить тему" title="Переключить тему">◐</button>
-    </div>
   </header>`;
 }
 
@@ -331,18 +308,9 @@ function renderPaste(id: string): void {
   });
 }
 
-function bindGlobalActions(): void {
-  document.querySelector<HTMLButtonElement>('[data-action="theme"]')?.addEventListener('click', () => {
-    const current = document.documentElement.dataset.theme;
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  });
-}
-
 function render(): void {
-  restoreTheme();
   if (route().kind === 'paste') renderPaste((route() as { kind: 'paste'; id: string }).id);
   else renderHome();
-  bindGlobalActions();
 }
 
 window.addEventListener('popstate', render);
