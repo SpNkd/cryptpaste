@@ -90,7 +90,6 @@ textarea:focus, input:focus, select:focus { border-color: var(--accent); box-sha
 .success-mark { display: grid; place-items: center; width: 54px; height: 54px; margin-bottom: 18px; border-radius: 17px; background: color-mix(in srgb, var(--success) 18%, transparent); color: var(--success); font-size: 1.6rem; }
 .note-content { overflow: auto; max-height: 58vh; margin: 22px 0; padding: 19px; border: 1px solid var(--border); border-radius: 15px; background: var(--surface-solid); white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.6; }
 .footer { margin-top: 25px; color: var(--muted); font-size: .8rem; text-align: center; }
-.footer a { color: var(--muted); }
 .hidden { display: none !important; }
 .spinner { display: inline-block; width: 15px; height: 15px; margin-right: 8px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; vertical-align: -2px; animation: spin .7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }

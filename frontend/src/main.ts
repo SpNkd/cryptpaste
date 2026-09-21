@@ -34,7 +34,7 @@ function header(): string {
 }
 
 function layout(content: string): string {
-  return `<div class="shell">${header()}<main>${content}</main><footer class="footer">Шифрование выполняется локально в браузере · <a href="${homeHref()}#privacy">О приватности</a></footer></div>`;
+  return `<div class="shell">${header()}<main>${content}</main><footer class="footer">Шифрование выполняется локально в браузере</footer></div>`;
 }
 
 function setMessage(element: HTMLElement, message: string, success = false): void {
