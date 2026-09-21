@@ -5,6 +5,19 @@ Never put credentials, raw request bodies, plaintext or private database URLs
 in this file.
 
 ```text
+## 2026-09-21 07:54Z — remove dead privacy footer link
+
+- Source commit: e9a36999f5b0c0feea1cb3d51015f257ce69918e
+- GitHub workflow: not used; GitHub remains the source mirror
+- GitVerse workflow: https://gitverse.ru/spnkd/cryptpaste/cicd/1602020 — success
+- Backend function version: unchanged ACTIVE production version
+- Static URLs: https://spnkd.gitverse.site/cryptpaste/ — HTTP 200
+- API health: pass
+- CORS preflight: pass for `https://spnkd.gitverse.site` and `http://localhost:5173`
+- Smoke flow: direct `/p/{id}` route returned the SPA and the published bundle no longer contains the dead privacy link
+- Rollback target: previous Pages artifact and source commit 77a1779
+- Notes: footer now contains only the static local-encryption notice
+
 ## 2026-09-21 07:44Z — hide delete controls without token
 
 - Source commit: e0a63828924178664bba4f72167747f3f9f5f3da
