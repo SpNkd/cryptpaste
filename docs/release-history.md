@@ -5,6 +5,19 @@ Never put credentials, raw request bodies, plaintext or private database URLs
 in this file.
 
 ```text
+## 2026-09-21 07:44Z — hide delete controls without token
+
+- Source commit: e0a63828924178664bba4f72167747f3f9f5f3da
+- GitHub workflow: not used; GitHub remains the source mirror
+- GitVerse workflow: https://gitverse.ru/spnkd/cryptpaste/cicd/1601916 — success
+- Backend function version: unchanged ACTIVE production version
+- Static URLs: https://spnkd.gitverse.site/cryptpaste/ — HTTP 200
+- API health: pass
+- CORS preflight: pass for `https://spnkd.gitverse.site` and `http://localhost:5173`
+- Smoke flow: direct `/p/{id}` route returned the SPA, delete controls were initially hidden, and API read/delete behavior remained covered by tests
+- Rollback target: previous Pages artifact and source commit 63698bc
+- Notes: delete buttons appear only after an owner or read-delete token is available
+
 ## 2026-09-20 17:06Z — remove broken theme toggle
 
 - Source commit: 39823c5c36071795d70add40ebffe5219501bc48
