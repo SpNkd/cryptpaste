@@ -196,12 +196,12 @@ function renderPaste(id: string): void {
     <section class="panel" aria-labelledby="decrypt-title">
       <form id="decrypt-form" class="form-grid" novalidate>
         <div class="field"><label for="decrypt-password">Пароль</label><input id="decrypt-password" type="password" autocomplete="current-password" placeholder="Введите пароль" required /></div>
-        <div class="actions"><button class="primary" id="decrypt-button" type="submit">Расшифровать</button><button class="danger" id="delete-viewer" type="button">Удалить заметку</button></div>
+        <div class="actions"><button class="primary" id="decrypt-button" type="submit">Расшифровать</button><button class="danger hidden" id="delete-viewer" type="button">Удалить заметку</button></div>
         <p class="message" id="decrypt-message" aria-live="polite"></p>
       </form>
       <div id="decrypted" class="hidden">
         <div class="label">Текст заметки</div><pre id="note-content" class="note-content" tabindex="0"></pre>
-        <div class="actions"><button class="secondary" id="copy-text" type="button">Скопировать текст</button><button class="secondary" id="hide-text" type="button">Скрыть</button><button class="danger" id="delete-after-decrypt" type="button">Удалить заметку</button></div>
+        <div class="actions"><button class="secondary" id="copy-text" type="button">Скопировать текст</button><button class="secondary" id="hide-text" type="button">Скрыть</button><button class="danger hidden" id="delete-after-decrypt" type="button">Удалить заметку</button></div>
       </div>
       <div class="security-note"><span aria-hidden="true">⌁</span><span>Неверный пароль не отправляется на сервер. При ошибке AES-GCM покажет общее сообщение: «Неверный пароль или данные повреждены».</span></div>
     </section>`);
@@ -219,6 +219,12 @@ function renderPaste(id: string): void {
   let readDeleteToken: string | null = null;
   let deleteAfterRead = false;
   let loaded = false;
+  const syncDeleteControls = (): void => {
+    const hasToken = Boolean(ownerDeleteToken || readDeleteToken);
+    deleteViewer.classList.toggle('hidden', !hasToken);
+    deleteAfterDecrypt.classList.toggle('hidden', !hasToken);
+  };
+  syncDeleteControls();
 
   const deleteWithAvailableToken = async (source: 'owner' | 'read'): Promise<void> => {
     const token = source === 'owner' ? ownerDeleteToken : readDeleteToken;
@@ -230,6 +236,7 @@ function renderPaste(id: string): void {
       await deletePaste(id, token, source);
       if (source === 'owner') ownerDeleteToken = null;
       if (source === 'read') readDeleteToken = null;
+      syncDeleteControls();
       setMessage(message, 'Заметка удалена.', true);
       deleteViewer.remove();
       deleteAfterDecrypt.remove();
@@ -266,6 +273,7 @@ function renderPaste(id: string): void {
       const response = await getPaste(id);
       readDeleteToken = response.readDeleteToken || null;
       deleteAfterRead = response.deleteAfterRead;
+      syncDeleteControls();
       loaded = true;
       if (deleteAfterRead) setMessage(message, 'После успешной расшифровки заметка будет удалена с сервера.', true);
     } catch (error) {
@@ -293,6 +301,7 @@ function renderPaste(id: string): void {
         try {
           await deletePaste(id, readDeleteToken, 'read');
           readDeleteToken = null;
+          syncDeleteControls();
         } catch {
           setMessage(message, 'Текст расшифрован, но автоматическое удаление не подтвердилось.', false);
         }
